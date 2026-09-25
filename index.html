@@ -1,559 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
-  <!-- Replace the content tag with appropriate information -->
-  <meta name="description" content="HiLSVA: Design and Evaluation of a Human-in-the-Loop Agentic System for Scientific Visualization">
-  <meta property="og:title" content="HiLSVA: Design and Evaluation of a Human-in-the-Loop Agentic System for Scientific Visualization"/>
-  <meta property="og:description" content="A human-in-the-loop agentic system that supports mixed-initiative SciVis workflows with explicit human oversight, stepwise provenance tracking, and learn-at-test-time adaptation from user feedback."/>
-  <meta property="og:url" content="https://hilsva.github.io/"/>
-  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
-  <meta property="og:image" content="https://hilsva.github.io/static/images/overview.jpg" />
-  <meta property="og:image:width" content="1200"/>
-  <meta property="og:image:height" content="630"/>
-
-
-  <meta name="twitter:title" content="HiLSVA: Design and Evaluation of a Human-in-the-Loop Agentic System for Scientific Visualization">
-  <meta name="twitter:description" content="A human-in-the-loop agentic system that supports mixed-initiative SciVis workflows with explicit human oversight, stepwise provenance tracking, and learn-at-test-time adaptation from user feedback.">
-  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
-  <meta name="twitter:image" content="https://hilsva.github.io/static/images/overview.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <!-- Keywords for your paper to be indexed by-->
-  <meta name="keywords" content="scientific visualization, SciVis, large language model, LLM, agents, human-in-the-loop, mixed-initiative, human-agent collaboration, human-centered computing, ParaView, agentic system, provenance">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-  <title>HiLSVA: Design and Evaluation of a Human-in-the-Loop Agentic System for Scientific Visualization</title>
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico?v=2">
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-  rel="stylesheet">
-
+  <meta name="description" content="VETR: Verified Execution Trajectories for Refinement. Recursive self-improvement of executable world representations for symbolic graphics reasoning. ICLR 2027 submission.">
+  <meta property="og:title" content="VETR | Recursive Self-Improvement of Executable World Representation for Symbolic Graphics Reasoning">
+  <meta property="og:description" content="Refining executable scenes through trace-supported updates and runtime validation, without additional language-model calls for repair construction.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="static/images/vetr/figure1.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="VETR | Recursive Self-Improvement of Executable World Representation for Symbolic Graphics Reasoning">
+  <meta name="twitter:description" content="Verified Execution Trajectories for Refinement · ICLR 2027 submission">
+  <meta name="twitter:image" content="static/images/vetr/figure1.webp">
+  <meta name="keywords" content="VETR, executable world representation, symbolic graphics reasoning, execution refinement, Blender, visual agents">
+  <title>VETR | Recursive Self-Improvement of Executable World Representation for Symbolic Graphics Reasoning</title>
+  <link rel="icon" href="static/images/vetr/favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,700|Noto+Sans:400,500,600,700" rel="stylesheet">
   <link rel="stylesheet" href="static/css/bulma.min.css">
-  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="static/css/index.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
-  <script src="static/js/bulma-carousel.min.js"></script>
-  <script src="static/js/bulma-slider.min.js"></script>
-  <script src="static/js/index.js"></script>
+  <script defer src="static/js/index.js"></script>
 </head>
 <body>
-
-<!-- Home icon -->
-<div style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
-  <a href="https://kuangshiai.github.io" target="_blank"
-     style="display: inline-block; padding: 10px; background-color: rgba(0,0,0,0.7); border-radius: 50%;
-            color: white; text-decoration: none; box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;"
-     onmouseover="this.style.backgroundColor='rgba(0,0,0,0.9)'; this.style.transform='scale(1.1)'"
-     onmouseout="this.style.backgroundColor='rgba(0,0,0,0.7)'; this.style.transform='scale(1)'">
-    <i class="fas fa-home" style="font-size: 18px;"></i>
-  </a>
-</div>
-
-<!-- More Research dropdown -->
-<div id="more-research" style="position: fixed; top: 20px; right: 20px; z-index: 1000; font-family: 'Google Sans', sans-serif;">
-  <button type="button" onclick="toggleMoreResearch(event)"
-     style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: none; cursor: pointer;
-            background-color: rgba(0,0,0,0.7); border-radius: 22px; color: white; font-size: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3); transition: all 0.3s ease;"
-     onmouseover="this.style.backgroundColor='rgba(0,0,0,0.9)'"
-     onmouseout="this.style.backgroundColor='rgba(0,0,0,0.7)'">
-    <i class="fas fa-flask" style="font-size: 14px;"></i>
-    <span>More Research</span>
-    <i class="fas fa-angle-down" style="font-size: 14px;"></i>
-  </button>
-  <div id="more-research-menu"
-       style="display: none; position: absolute; right: 0; margin-top: 8px; min-width: 220px;
-              background-color: white; border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); overflow: hidden;">
-    <a href="https://nli4volvis.github.io/" target="_blank"
-       style="display: block; padding: 12px 16px; color: #363636; text-decoration: none; font-size: 14px;"
-       onmouseover="this.style.backgroundColor='#f5f5f5'" onmouseout="this.style.backgroundColor='white'">
-      NLI4VolVis
-    </a>
-    <a href="https://scivisagentbench.github.io/" target="_blank"
-       style="display: block; padding: 12px 16px; color: #363636; text-decoration: none; font-size: 14px; border-top: 1px solid #eee;"
-       onmouseover="this.style.backgroundColor='#f5f5f5'" onmouseout="this.style.backgroundColor='white'">
-      SciVisAgentBench
-    </a>
-  </div>
-</div>
-<script>
-  function toggleMoreResearch(e) {
-    e.stopPropagation();
-    var m = document.getElementById('more-research-menu');
-    m.style.display = (m.style.display === 'block') ? 'none' : 'block';
-  }
-  document.addEventListener('click', function (e) {
-    var d = document.getElementById('more-research');
-    if (d && !d.contains(e.target)) {
-      document.getElementById('more-research-menu').style.display = 'none';
-    }
-  });
-</script>
-
-  <section class="hero">
+<a class="skip-link" href="#abstract">Skip to content</a>
+<main>
+  <section class="hero publication-header">
     <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">HiLSVA: Design and Evaluation of a Human-in-the-Loop Agentic System for Scientific Visualization</h1>
-            <div class="is-size-5 publication-authors">
-              <!-- Paper authors -->
-              <span class="author-block">
-                <a href="https://kuangshiai.github.io/" target="_blank">Kuangshi Ai</a>,</span>
-                <span class="author-block">
-                <a href="https://scholar.google.com/citations?user=6NPARi8AAAAJ&hl=en" target="_blank">Patrick Phuoc Do</a>,</span>
-                  <span class="author-block">
-                    <a href="https://sites.nd.edu/chaoli-wang/" target="_blank">Chaoli Wang</a>
-                  </span>
-                  </div>
-
-                  <div class="is-size-5 publication-authors">
-                    <span class="author-block">University of Notre Dame</span>
-                  </div>
-
-                  <div class="is-size-5 publication-venue" style="margin: 0 auto;">
-                    <span class="venue-block" style="color: #d40000; font-weight: normal;">IEEE Transactions on Visualization and Computer Graphics (IEEE VIS 2026)</span>
-                  </div>
-
-                  <div class="column has-text-centered">
-                    <div class="publication-links">
-
-                    <!-- arXiv Paper link -->
-                    <span class="link-block">
-                      <a href="https://arxiv.org/abs/2606.26614" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="ai ai-arxiv"></i>
-                      </span>
-                      <span>Paper</span>
-                    </a>
-                  </span>
-
-                    <!-- Supplementary / User Study PDF link -->
-                    <span class="link-block">
-                      <a href="static/pdfs/user_study_doc.pdf" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Supplementary</span>
-                    </a>
-                  </span>
-
-                  <!-- Github link -->
-                  <span class="link-block">
-                    <a href="https://github.com/KuangshiAi/HiLSVA" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                  </a>
-                </span>
-
-                  <span class="link-block">
-                    <a href="https://www.youtube.com/watch?v=vb8Q34SnawM" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fas fa-video"></i>
-                    </span>
-                    <span>Video</span>
-                  </a>
-                </span>
-
-            </div>
-          </div>
+      <div class="container is-max-desktop has-text-centered">
+        <p class="project-name">VETR</p>
+        <h1 class="title is-1 publication-title">Recursive Self-Improvement of Executable World Representation for Symbolic Graphics Reasoning</h1>
+        <p class="project-expansion">Verified Execution Trajectories for Refinement</p>
+        <p class="is-size-5 publication-authors">Anonymous authors</p>
+        <p class="publication-venue">ICLR 2027 submission</p>
+        <div class="publication-links" aria-label="Project resources">
+          <!-- Replace each disabled button with an anchor when its URL is available. -->
+          <button class="button is-normal is-rounded is-dark resource-placeholder" type="button" disabled aria-label="PDF, coming soon"><span class="icon" aria-hidden="true"><i class="fas fa-file-pdf"></i></span><span>PDF</span><span class="resource-status">Soon</span></button>
+          <button class="button is-normal is-rounded is-dark resource-placeholder" type="button" disabled aria-label="arXiv, coming soon"><span class="arxiv-icon" aria-hidden="true">X</span><span>arXiv</span><span class="resource-status">Soon</span></button>
+          <button class="button is-normal is-rounded is-dark resource-placeholder" type="button" disabled aria-label="GitHub, coming soon"><span class="icon" aria-hidden="true"><i class="fab fa-github"></i></span><span>GitHub</span><span class="resource-status">Soon</span></button>
         </div>
+        <nav class="section-nav" aria-label="Page sections"><a href="#abstract">Abstract</a><a href="#method">Method</a><a href="#results">Results</a><a href="#ablation">Ablation</a></nav>
       </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- Teaser videos -->
-<section class="hero teaser">
-  <div class="container is-max-widescreen">
-    <div class="hero-body">
-      <div class="columns is-multiline is-centered">
-        <div class="column is-one-third has-text-centered">
-          <video autoplay loop muted playsinline controls preload="auto" style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background-color: #000; border-radius: 8px;">
-            <source src="static/videos/foot.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <p class="subtitle is-6" style="margin-top: 0.5rem;"><strong>Foot</strong> &mdash; Basic Action Task</p>
-        </div>
-        <div class="column is-one-third has-text-centered">
-          <video autoplay loop muted playsinline controls preload="auto" style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background-color: #000; border-radius: 8px;">
-            <source src="static/videos/isabel.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <p class="subtitle is-6" style="margin-top: 0.5rem;"><strong>Hurricane</strong> &mdash; Basic Action Task</p>
-        </div>
-        <div class="column is-one-third has-text-centered">
-          <video autoplay loop muted playsinline controls preload="auto" style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background-color: #000; border-radius: 8px;">
-            <source src="static/videos/tornado.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <p class="subtitle is-6" style="margin-top: 0.5rem;"><strong>Tornado</strong> &mdash; Visualization Workflow Task</p>
-        </div>
-        <div class="column is-one-third has-text-centered">
-          <video autoplay loop muted playsinline controls preload="auto" style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background-color: #000; border-radius: 8px;">
-            <source src="static/videos/combustion.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <p class="subtitle is-6" style="margin-top: 0.5rem;"><strong>Combustion</strong> &mdash; Visualization Workflow Task</p>
-        </div>
-        <div class="column is-one-third has-text-centered">
-          <video autoplay loop muted playsinline controls preload="auto" style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background-color: #000; border-radius: 8px;">
-            <source src="static/videos/half-cylinder.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <p class="subtitle is-6" style="margin-top: 0.5rem;"><strong>Half-cylinder</strong> &mdash; Scientific Analysis Task</p>
-        </div>
-      </div>
-      <h2 class="subtitle has-text-centered" style="margin-top: 1.5rem;">
-        HiLSVA reframes agentic scientific visualization as a collaborative process that <i>augments</i>, rather than replaces, human analytical reasoning &mdash; combining mixed-initiative interaction with robust agentic infrastructure, explicit human oversight, stepwise provenance tracking, and learn-at-test-time adaptation from user feedback.
-      </h2>
-    </div>
-  </div>
-</section>
-<!-- End teaser videos -->
-
-<!-- Paper abstract -->
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Large language model (LLM) agents enable natural language interaction for scientific visualization (SciVis). Still, prior systems have essentially prioritized autonomy over human analytical control, thereby limiting transparency and human oversight. We present HiLSVA, a human-in-the-loop agentic system that supports mixed-initiative SciVis workflows. HiLSVA integrates a plan-first multi-agent architecture with explicit human oversight, stepwise provenance tracking, and learn-at-test-time adaptation from user feedback.
-          </p>
-          <p>
-            The system supports fluid handoff between humans and agents through both natural language and direct manipulation of visualizations, while sandboxed execution ensures safe, reproducible workflows. In doing so, HiLSVA reframes agentic SciVis as a collaborative process that augments, rather than replaces, human analytical reasoning. We evaluate HiLSVA through representative case studies and a controlled user study with twelve participants of varying expertise across multiple autonomy settings.
-          </p>
-          <p>
-            Results show that mixed-initiative interaction improves task completion, user control, and workflow transparency across different levels of user expertise, while revealing a tradeoff between execution efficiency and human oversight. These findings highlight the importance of human-centered design in agentic SciVis and guide the development of future collaborative visualization systems.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End paper abstract -->
-
-
-<!-- System Overview / Pipeline section -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3 has-text-centered">System Overview</h2>
-          <div class="content has-text-justified">
-            <p>
-              HiLSVA adopts a multi-agent architecture centered around a lead <strong>orchestrator</strong> that coordinates a set of specialized sub-agents, and is designed around five pillars that keep the human in control throughout the SciVis workflow:
-            </p>
-            <div class="columns">
-              <div class="column">
-                <p><strong>(a) Mixed-initiative agentic architecture:</strong> An orchestrator interprets user intent, constructs explicit stepwise plans, and coordinates specialized agents with bidirectional human&ndash;agent interaction.</p>
-                <p><strong>(b) Specialized visualization agents:</strong> A <em>ParaView agent</em> (direct control via MCP), a <em>code agent</em> (SciVis Python generation with RAG and iterative error correction), a <em>file surfer</em>, and a <em>web surfer</em> execute SciVis actions and report outcomes back to the orchestrator.</p>
-                <p><strong>(c) Stepwise control &amp; provenance tracking:</strong> Workflows are represented as editable steps that record planned and executed actions, software states, and visualization outputs for undo, branching, and reuse.</p>
-              </div>
-              <div class="column">
-                <p><strong>(d) Sandboxed execution environments:</strong> Tool interactions run in isolated Docker containers, enabling safe, parallel execution across sessions.</p>
-                <p><strong>(e) Learn-at-test-time (LTT) with human feedback:</strong> A self-improving agent reflects on execution outcomes, assesses uncertainty, queries users when needed, and updates a knowledge repository during inference.</p>
-                <p>
-                  The current implementation runs <strong>ParaView</strong> as the visualization engine, uniquely supporting multiple interaction modalities on the same instance &mdash; MCP tool calls, generated Python scripts, and direct GUI manipulation. The architecture itself is backend-agnostic.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="has-text-centered" style="margin-top: 2rem;">
-            <img src="static/images/overview.jpg" alt="HiLSVA System Overview" style="width: 100%; max-width: 1400px; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
-            <p class="subtitle is-6" style="margin-top: 1rem; color: #666;">
-              Overview of HiLSVA. An orchestrator interprets user intent, builds explicit stepwise plans, and coordinates specialized agents (ParaView, code, file surfer, web surfer) with bidirectional human&ndash;agent interaction, provenance-aware workflows, sandboxed execution, and a self-improving agent that adapts during inference.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End system overview section -->
-
-
-<!-- Key Capabilities section -->
-<section class="section hero is-light">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3 has-text-centered">Key Mixed-Initiative Capabilities</h2>
-          <div class="content has-text-justified">
-            <p>
-              HiLSVA introduces fine-grained mechanisms for shared initiative between users and agents while preserving human authority throughout the SciVis workflow. The system supports six core capabilities:
-            </p>
-            <div class="columns">
-              <div class="column">
-                <p><strong>(a) Joint planning:</strong> Collaboratively create and approve step-by-step plans; users can reorder, add, or remove steps, or modify step instructions before execution.</p>
-                <p><strong>(b) Action guards:</strong> Require explicit review and approval for critical or potentially irreversible actions, such as executing generated code or sensitive tool calls.</p>
-                <p><strong>(c) Stepwise rollback:</strong> Revert to any previous workflow step to inspect, branch, or revise the visualization, with all software states faithfully restored.</p>
-              </div>
-              <div class="column">
-                <p><strong>(d) Interactive execution:</strong> Interrupt and guide task execution using the visualization engine GUI directly or through chat, with fluid handoff between manual and automated control.</p>
-                <p><strong>(e) Autonomy control:</strong> Adjust the level of system autonomy and user involvement during task execution.</p>
-                <p><strong>(f) Learn-at-test-time (LTT):</strong> Adapt agent behavior during execution through retrieval, self-reflection, and human feedback stored as reusable knowledge.</p>
-              </div>
-            </div>
-          </div>
-          <div class="has-text-centered" style="margin-top: 2rem;">
-            <img src="static/images/example-features.jpg" alt="HiLSVA Key Capabilities" style="width: 100%; max-width: 1500px; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
-            <p class="subtitle is-6" style="margin-top: 1rem; color: #666;">
-              Key mixed-initiative capabilities of HiLSVA. The system supports (a) collaborative planning, (b) guarded execution, (c) stepwise rollback, (d) interactive user steering, (e) autonomy control, and (f) LTT adaptation through retrieval, reflection, and human feedback.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End key capabilities section -->
-
-
-<!-- Interface section -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3 has-text-centered">Interactive Interface</h2>
-          <div class="content has-text-justified">
-            <p>
-              HiLSVA provides an interface that tightly couples planning, execution, and visualization. A <strong>mixed-initiative chat widget</strong> serves as the primary channel for natural language interaction, where users specify tasks, inspect and edit execution plans, approve or reject actions, review generated code, and respond to agent self-reflection. A <strong>workflow monitor panel</strong> exposes the current execution state as a stepwise process, supporting undo and return to prior states using recorded provenance. A <strong>real-time visualization engine and web browser</strong> let users directly intervene by taking control of the GUI at any point and seamlessly resume automated execution. A <strong>plan gallery</strong> and <strong>knowledge base</strong> accumulate validated workflows and learned experience to support provenance-aware reuse and LTT adaptation.
-            </p>
-          </div>
-          <div class="has-text-centered" style="margin-top: 2rem;">
-            <img src="static/images/interface.jpg" alt="HiLSVA Interface" style="width: 100%; max-width: 1400px; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
-            <p class="subtitle is-6" style="margin-top: 1rem; color: #666;">
-              The HiLSVA interface: (a) mixed-initiative chat widget for planning, refinement, and uncertainty queries; (b) workflow monitor panel showing execution progress and clickable state transitions; (c) real-time visualization engine and web browser where actions directly operate on the ParaView environment; and (d) plan gallery and knowledge base for reuse and adaptation.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End interface section -->
-
-
-<!-- Case Studies section -->
-<section class="section hero is-light">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3 has-text-centered">Case Studies</h2>
-          <div class="content has-text-justified">
-            <p>
-              We present five case studies of varying complexity that span three canonical SciVis stages &mdash; <em>data exploration</em>, <em>data visualization</em>, and <em>scientific insight</em>. Each example illustrates how mixed-initiative interaction, provenance-aware reuse, and learned knowledge support real SciVis workflows. The full recorded interactions for each task are shown in the videos at the top of this page.
-            </p>
-          </div>
-
-          <!-- Case studies grid -->
-          <div class="columns is-multiline" style="margin-top: 2rem;">
-
-            <!-- Foot Case Study -->
-            <div class="column is-half">
-              <div class="box" style="height: 100%;">
-                <h4 class="title is-5 has-text-centered">Foot &mdash; Basic Action Task</h4>
-                <div class="has-text-centered" style="margin-bottom: 1rem;">
-                  <img src="static/images/foot.jpg" alt="Foot case study" style="width: 100%; max-width: 480px; height: auto; border-radius: 8px;"/>
-                </div>
-                <div class="content has-text-justified">
-                  <p>
-                    A CT scan of a human foot (125&times;255&times;183). HiLSVA generates an initial isosurface visualization that separates bone from skin and soft tissue, retrieves a labeled anatomy reference from the web, and then supports user-driven refinement through direct GUI interaction to reveal the metatarsals and phalanges &mdash; demonstrating data exploration through iterative refinement and contextual information retrieval.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Hurricane Case Study -->
-            <div class="column is-half">
-              <div class="box" style="height: 100%;">
-                <h4 class="title is-5 has-text-centered">Hurricane &mdash; Basic Action Task</h4>
-                <div class="has-text-centered" style="margin-bottom: 1rem;">
-                  <img src="static/images/isabel.jpg" alt="Hurricane case study" style="width: 100%; max-width: 480px; height: auto; border-radius: 8px;"/>
-                </div>
-                <div class="content has-text-justified">
-                  <p>
-                    An atmospheric simulation of Hurricane Isabel (500&times;500&times;100). HiLSVA constructs a horizontal slice of the temperature field at <em>z</em>&nbsp;=&nbsp;49.5 with the Color to Warm colormap, analyzes the value distribution via a histogram, and overlays contour lines from linearly sampled values to better reveal the temperature structure and gradients of the storm.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tornado Case Study -->
-            <div class="column is-half">
-              <div class="box" style="height: 100%;">
-                <h4 class="title is-5 has-text-centered">Tornado &mdash; Visualization Workflow Task</h4>
-                <div class="has-text-centered" style="margin-bottom: 1rem;">
-                  <img src="static/images/tornado.jpg" alt="Tornado case study" style="width: 100%; max-width: 480px; height: auto; border-radius: 8px;"/>
-                </div>
-                <div class="content has-text-justified">
-                  <p>
-                    A simulated tornado vector field (64&times;64&times;64). For uncertain seeding parameters, HiLSVA runs three Stream Tracer trials with point-cloud seeding, lets the user roll back to the preferred trial via the workflow monitor, then uses knowledge-guided glyph visualization &mdash; arrows oriented by the velocity vector and scaled by magnitude &mdash; followed by a self-reflection that suggests stream tubes for clarity.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Combustion Case Study -->
-            <div class="column is-half">
-              <div class="box" style="height: 100%;">
-                <h4 class="title is-5 has-text-centered">Combustion &mdash; Visualization Workflow Task</h4>
-                <div class="has-text-centered" style="margin-bottom: 1rem;">
-                  <img src="static/images/combustion.jpg" alt="Combustion case study" style="width: 100%; max-width: 480px; height: auto; border-radius: 8px;"/>
-                </div>
-                <div class="content has-text-justified">
-                  <p>
-                    A multivariate, time-varying turbulent reacting flow (240&times;360&times;60, 33 timesteps). The file surfer identifies the number of timesteps, then HiLSVA volume-renders the time-varying <code>Y_OH</code> field &mdash; reusing a learned colormap configuration from the knowledge base &mdash; and exports an animation, before extending the analysis to an isosurface animation of the <code>mixfrac</code> field, highlighting iterative refinement on multivariate time-varying data.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Half-cylinder Case Study -->
-            <div class="column is-half is-offset-one-quarter">
-              <div class="box" style="height: 100%;">
-                <h4 class="title is-5 has-text-centered">Half-cylinder &mdash; Scientific Analysis Task</h4>
-                <div class="has-text-centered" style="margin-bottom: 1rem;">
-                  <img src="static/images/half-cylinder.jpg" alt="Half-cylinder case study" style="width: 100%; max-width: 480px; height: auto; border-radius: 8px;"/>
-                </div>
-                <div class="content has-text-justified">
-                  <p>
-                    Incompressible 3D flow around a half-cylinder (<em>Re</em>&nbsp;=&nbsp;640, 640&times;240&times;80). Starting from a glyph-based visualization of the vector field, HiLSVA computes derived vortex-identification fields &mdash; the Q-criterion and &lambda;<sub>2</sub> &mdash; to reveal coherent vortex structures, saves the successful workflow as reusable knowledge, and supports extending the analysis to additional Reynolds numbers. This analysis-driven exploration exemplifies human-guided scientific discovery.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End case studies section -->
-
-
-<!-- User Study section -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3 has-text-centered">User Study</h2>
-          <div class="content has-text-justified">
-            <p>
-              We conducted a controlled user study with <strong>12 participants</strong> across three expertise levels &mdash; three SciVis experts, four domain scientists with limited visualization-tool experience, and five novices with neither domain nor visualization expertise. Each participant used HiLSVA across three autonomy modes (full-autonomous, half-autonomous, and mixed-initiative with LTT) on four visualization tasks spanning basic operations and more complex workflow construction.
-            </p>
-
-            <h3 class="title is-4">Key Findings</h3>
-            <ul>
-              <li><strong>Expertise-independent success:</strong> All participants completed the tasks, and accuracy on domain-specific interpretation questions averaged 11.75 out of 12. HiLSVA enabled non-experts to achieve expert-comparable performance, with no data hallucinations (fabricated values or non-existent fields) observed in the logged sessions.</li>
-              <li><strong>Efficiency&ndash;oversight tradeoff:</strong> Execution time was lowest in full-autonomous mode and highest in mixed-initiative mode. Rather than a reliable speed difference, this reflects a tradeoff in which greater user involvement incurs additional interaction time while enabling verification and intervention.</li>
-              <li><strong>No single mode fits all:</strong> Given a free choice on the final task, seven participants selected full-autonomous mode, two half-autonomous, and three mixed-initiative &mdash; many preferred more automation once they trusted the system, while a notable subset still valued greater human control.</li>
-              <li><strong>Strong usability and transparency:</strong> Post-study questionnaire ratings averaged 4.66 / 5 across all questions, with particularly high scores for the ability to revisit previous steps, the usefulness of stepwise provenance, and clarity of system feedback.</li>
-            </ul>
-          </div>
-
-          <div class="has-text-centered" style="margin-top: 2rem;">
-            <img src="static/images/survey_responses.png" alt="User Study Survey Responses" style="width: 100%; max-width: 1200px; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
-            <p class="subtitle is-6" style="margin-top: 1rem; color: #666;">
-              Survey responses to 14 post-study questions, along with mean scores (on a 1&ndash;5 scale) and standard deviations.
-            </p>
-          </div>
-
-          <div class="content has-text-justified" style="margin-top: 2rem;">
-            <p>
-              Overall, the study demonstrates that HiLSVA enables users at all levels of expertise, including novices, to complete non-trivial SciVis tasks, while mixed-initiative interaction provides a flexible balance between efficiency and control. Full study materials and the detailed protocol are available in the
-              <a href="static/pdfs/user_study_doc.pdf" target="_blank">User Study Document</a>.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End user study section -->
-
-<!-- Youtube video -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <!-- Paper video. -->
-      <h2 class="title is-3">System Demonstration</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-
-          <div class="publication-video">
-            <!-- Youtube embed code here -->
-            <iframe src="https://www.youtube.com/embed/vb8Q34SnawM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End youtube video -->
-
-<!-- BibTeX citation -->
-  <section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
-      <h2 class="title">BibTeX</h2>
-      <pre><code>@article{ai2026hilsva,
-  author={Ai, Kuangshi and Do, Patrick Phuoc and Wang, Chaoli},
-  title={{HiLSVA}: Design and Evaluation of a Human-in-the-Loop Agentic System for Scientific Visualization},
-  journal={arXiv preprint arXiv:2606.26614},
-  year={2026},
-  note={In Proceedings of IEEE Transactions on Visualization and Computer Graphics (IEEE VIS 2026)}
-}</code></pre>
     </div>
   </section>
-<!-- End BibTeX citation -->
 
-
-  <footer class="footer">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-
-          <p>
-           This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-
-        </div>
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <p class="teaser-statement">Turn execution evidence into <strong>edits that actually take effect.</strong></p>
+        <figure>
+          <a class="figure-link" href="static/pdfs/vetr/figure1.pdf" target="_blank" rel="noopener" aria-label="Open the original Figure 1 PDF in a new tab">
+            <img src="static/images/vetr/figure1.webp" width="2200" height="880" fetchpriority="high" alt="Figure 1: Conceptual overview of VETR linking a scene program, execution evidence, and a realized scene. Start-to-goal examples illustrate viewpoint alignment, appearance editing, and geometry and placement.">
+          </a>
+          <figcaption><strong>Figure 1. Conceptual overview of VETR.</strong> Execution-grounded evidence connects a scene program, its observed writes and realized bindings, and the resulting 3D scene. Iterative refinement supports viewpoint alignment, appearance editing, and geometry and placement adjustments toward a visual goal. <span class="figure-hint">Click the figure to enlarge.</span></figcaption>
+        </figure>
       </div>
     </div>
+  </section>
+
+  <section class="section hero is-light" id="abstract">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Abstract</h2>
+      <div class="content abstract-copy">
+        <p>Visual agents for symbolic graphics reasoning depend on executable world representations, yet continued improvement remains bottlenecked by ambiguous supervision from final renders. While recent agentic systems refine scenes through repeated interaction, they lack mechanisms to recursively extract actionable evidence from execution traces—overlooking which proposed symbolic edits survived, disappeared, or interfered during program execution.</p>
+        <p>To address this, we propose <strong>VETR (Verified Execution Trajectories for Refinement)</strong>, a framework that enables recursive self-improvement over executable world representations for robust symbolic graphics reasoning. Given an initial generation trajectory, VETR maintains complete execution records as an authoritative world state and introduces an execution refiner that recursively distills observed writes and their realized consequences into bounded program updates. Without additional language-model calls for repair, the refiner checks that selected effects are realized while captured surrounding state is preserved; the visual verifier then assesses goal relevance.</p>
+        <p>Evaluations on BlenderGym and BlenderBench compare visual editing across model backbones. Matched BlenderBench ablations show that execution refinement improves aggregate errors for GPT-5.6-luna and Qwen3.8-27B, while repeated diagnostic runs and fixed-proposal controls isolate the benefits of trace-derived updates and compatible resource bindings.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="method">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Refinement Through Execution Evidence</h2>
+      <p class="section-intro">VETR separates realizing a proposed edit from judging its visual quality. The execution refiner validates the change; the visual verifier evaluates the goal.</p>
+      <figure>
+        <a class="figure-link" href="static/pdfs/vetr/figure2.pdf" target="_blank" rel="noopener" aria-label="Open the original Figure 2 PDF in a new tab">
+          <img src="static/images/vetr/figure2.webp" width="2200" height="999" loading="lazy" alt="Figure 2: VETR retains execution evidence and refines complete programs. The agent loop executes from a fixed scene origin, passes traces through a private evidence refiner, and delivers renders to a visual verifier. The lower panel shows observed writes, supported effects, ownership refinement, and compilation and validation.">
+        </a>
+        <figcaption><strong>Figure 2. Retain evidence; reconstruct and refine complete programs.</strong> Every submitted execution enters a private refiner before visual verification. Observed writes supply candidate endpoints; the compiler selects supported changes, splits conflicting ownership groups while retaining compatible sharing, and checks the executable update. The delivered record is a validated update, the raw output, or the previous cached record after execution failure.</figcaption>
+      </figure>
+      <div class="columns method-steps">
+        <div class="column"><h3><span class="step-number">1</span> Recover</h3><p>Extract witnessed values that were overwritten or failed to survive execution. Treat them as candidate updates.</p></div>
+        <div class="column"><h3><span class="step-number">2</span> Compile</h3><p>Resolve conflicting resource bindings with local copies, while retaining compatible sharing.</p></div>
+        <div class="column"><h3><span class="step-number">3</span> Validate</h3><p>Check that supported edits take effect and captured surrounding state is preserved before visual assessment.</p></div>
+      </div>
+      <p class="method-note"><strong>0 additional LLM calls for repair construction.</strong> Runtime validation uses at most six additional executions per proposal; model weights remain fixed.</p>
+    </div>
+  </section>
+
+  <section class="section hero is-light" id="results">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Experimental Results</h2>
+      <p class="section-intro">Evaluated on BlenderGym (280 tasks) and BlenderBench (27 released tasks), with controlled edit-realization studies on BlenderPreserve.</p>
+      <article class="result-block">
+        <h3 class="title is-4">BlenderGym: Matched Visual Quality</h3>
+        <p class="result-description">On 212 jointly valid tasks with GPT-5.6-luna, VETR improves pixel, structural, perceptual, and semantic agreement with the goal. N denotes candidate width.</p>
+        <div class="table-scroll" role="region" aria-label="BlenderGym image quality results, scroll horizontally on small screens" tabindex="0">
+          <table class="table results-table is-fullwidth">
+            <caption>Table 2 in the paper · GPT-5.6-luna · 212 jointly valid tasks</caption>
+            <thead><tr><th scope="col">System</th><th scope="col">N-CLIP ↓</th><th scope="col">PL ↓</th><th scope="col">PSNR ↑</th><th scope="col">SSIM ↑</th><th scope="col">Edge F1 ↑</th><th scope="col">LPIPS ↓</th><th scope="col">CLIP ↑</th></tr></thead>
+            <tbody><tr class=""><th scope="row">One-Shot</th><td>2.607</td><td>1.402</td><td>24.67</td><td>0.883</td><td>0.771</td><td>0.129</td><td>0.974</td></tr>
+<tr class="ours"><th scope="row">VETR (N = 1)</th><td>1.555</td><td>0.613</td><td>29.15</td><td>0.923</td><td>0.833</td><td>0.076</td><td>0.984</td></tr>
+<tr class="ours"><th scope="row">VETR (N = 4)</th><td>1.232</td><td>0.578</td><td>30.41</td><td>0.923</td><td>0.839</td><td>0.070</td><td>0.988</td></tr>
+</tbody>
+          </table>
+        </div>
+        <p class="table-note">N-CLIP and PL are scaled by 100. ↓ Lower is better; ↑ higher is better. All rows use the same task set.</p>
+      </article>
+      <article class="result-block">
+        <h3 class="title is-4">BlenderBench: Native Editing Tasks</h3>
+        <p class="result-description">VETR improves the aggregate score on both backbones, with especially large gains on Level 3. All iterative rows complete 27/27 tasks.</p>
+        <div class="table-scroll" role="region" aria-label="BlenderBench results, scroll horizontally on small screens" tabindex="0">
+          <table class="table results-table is-fullwidth bench-table">
+            <caption>Table 3 in the paper · 9 tasks per level · N = 1 for iterative methods</caption>
+            <thead><tr><th scope="col" rowspan="2">Backbone</th><th scope="col" rowspan="2">System</th><th scope="colgroup" colspan="2">Level 1</th><th scope="colgroup" colspan="2">Level 2</th><th scope="colgroup" colspan="2">Level 3</th><th scope="col" rowspan="2">Improvement ↑</th></tr><tr><th scope="col">PL ↓</th><th scope="col">N-CLIP ↓</th><th scope="col">PL ↓</th><th scope="col">N-CLIP ↓</th><th scope="col">PL ↓</th><th scope="col">N-CLIP ↓</th></tr></thead>
+            <tbody><tr class="group-start"><td>GPT-5.6-luna</td><th scope="row">One-Shot</th><td>10.9403</td><td>14.8074</td><td>2.7780</td><td>4.4044</td><td>14.3415</td><td>26.3542</td><td>—</td></tr>
+<tr class=""><td>GPT-5.6-luna</td><th scope="row">VIGA (N = 1)</th><td>11.2304</td><td>14.7821</td><td>5.3481</td><td>5.0353</td><td>21.7647</td><td>22.8812</td><td>−24.65%</td></tr>
+<tr class="ours"><td>GPT-5.6-luna</td><th scope="row">VETR (N = 1)</th><td>8.3768</td><td>10.4058</td><td>1.0725</td><td>2.7410</td><td>5.3922</td><td>6.3201</td><td>+48.46%</td></tr>
+<tr class="group-start"><td>Qwen3.8-27B</td><th scope="row">One-Shot</th><td>12.9096</td><td>19.3977</td><td>3.9448</td><td>5.1091</td><td>18.5005</td><td>36.1053</td><td>—</td></tr>
+<tr class=""><td>Qwen3.8-27B</td><th scope="row">VIGA (N = 1)</th><td>9.4124</td><td>14.2022</td><td>4.5780</td><td>4.8665</td><td>13.6108</td><td>15.1571</td><td>+21.17%</td></tr>
+<tr class="ours"><td>Qwen3.8-27B</td><th scope="row">VETR (N = 1)</th><td>11.3198</td><td>11.6660</td><td>0.2585</td><td>3.9662</td><td>6.1227</td><td>9.1118</td><td>+51.61%</td></tr>
+</tbody>
+          </table>
+        </div>
+        <p class="table-note">Errors × 100. Improvement is the mean relative reduction from the same-backbone One-Shot row across the six level–metric cells. Means use each method’s rendered tasks; GPT-5.6-luna One-Shot completes 21/27 tasks (9/6/6 by level), and failures are excluded.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="ablation">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">What Does the Execution Refiner Add?</h2>
+      <p class="section-intro">Matched BlenderBench runs keep the prompts, tools, backbone, fixed-origin execution, candidate width, and ten-interaction budget unchanged. Only the refiner is switched on or off.</p>
+      <div class="table-scroll" role="region" aria-label="Execution refiner ablation results, scroll horizontally on small screens" tabindex="0">
+        <table class="table results-table is-fullwidth">
+          <caption>Selected columns from Table 4 · Level 3 errors and overall six-cell improvement</caption>
+          <thead><tr><th scope="col">Backbone</th><th scope="col">Setting</th><th scope="col">Level 3 PL ↓</th><th scope="col">Level 3 N-CLIP ↓</th><th scope="col">Overall improvement ↑</th></tr></thead>
+          <tbody><tr class="group-start"><td>GPT-5.6-luna</td><th scope="row">Without refinement</th><td>11.8475</td><td>15.2108</td><td>+41.32%</td></tr>
+<tr class="ours"><td>GPT-5.6-luna</td><th scope="row">VETR (default)</th><td>5.3922</td><td>6.3201</td><td>+48.46%</td></tr>
+<tr class="group-start"><td>Qwen3.8-27B</td><th scope="row">Without refinement</th><td>12.3879</td><td>18.5392</td><td>+34.72%</td></tr>
+<tr class="ours"><td>Qwen3.8-27B</td><th scope="row">VETR (default)</th><td>6.1227</td><td>9.1118</td><td>+51.61%</td></tr>
+</tbody>
+        </table>
+      </div>
+      <p class="table-note">Errors × 100. Overall improvement is measured against One-Shot, as above. Refinement improves the aggregate score, although several easier-level cells worsen: runtime validity alone does not guarantee better goal-image alignment.</p>
+      <div class="diagnostic-callout">
+        <div><p class="eyebrow">BlenderPreserve · controlled diagnosis</p><h3 class="title is-4">82.7% strict success across 150 runs</h3><p>The refiner passes 124/150 runs, versus 100/150 for an overwrite-aware prompt hint, 98/150 for rollback, and 86/150 for additional generator search.</p></div>
+        <p class="diagnostic-note">30 tasks × 5 independent draws per policy. This diagnostic suite uses a goal-image score gate; BlenderBench uses runtime-only repair acceptance.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="container is-max-desktop has-text-centered">
+    <p><strong>VETR</strong> · Anonymous authors · ICLR 2027 submission</p>
+    <p class="footer-credit">Website adapted from the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a> and <a href="https://nerfies.github.io/" target="_blank" rel="noopener">Nerfies</a>. Website template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</p>
   </div>
 </footer>
-
-<!-- Statcounter tracking code -->
-
-<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
-
-    <!-- End of Statcounter Code -->
-
-  </body>
-  </html>
+</body>
+</html>

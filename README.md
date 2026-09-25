@@ -1,29 +1,32 @@
-# HiLSVA: Design and Evaluation of a Human-in-the-Loop Agentic System for Scientific Visualization
+# VETR project page
 
-This repository contains the project page for **HiLSVA**, a human-in-the-loop agentic system that supports mixed-initiative scientific visualization (SciVis) workflows with explicit human oversight, stepwise provenance tracking, and learn-at-test-time adaptation from user feedback.
+**Recursive Self-Improvement of Executable World Representation for Symbolic Graphics Reasoning**
 
-**Live site:** [https://hilsva.github.io/](https://hilsva.github.io/)
+Anonymous authors · ICLR 2027 submission
 
-## Links
+Static project page based on the existing Academic Project Page Template / Bulma layout. Open `index.html` or serve this directory with `python3 -m http.server 8000`.
 
-- **Code:** [https://github.com/KuangshiAi/HiLSVA](https://github.com/KuangshiAi/HiLSVA)
-- **Video:** [https://www.youtube.com/watch?v=vb8Q34SnawM](https://www.youtube.com/watch?v=vb8Q34SnawM)
-- **User Study Document:** [static/pdfs/user_study_doc.pdf](static/pdfs/user_study_doc.pdf)
+## Content source
+
+The title, abstract, and experimental results follow **`paper_source/evotrace_iclr2027.pdf`**, which differs from the adjacent LaTeX source. Per the requested figure selection, the images use the standalone PDFs below rather than the compiled manuscript figures.
+
+- Figure 1: `paper_source/fig/figure1/VETR_figure1.pdf`.
+- Figure 2: `paper_source/fig/figure2/vetr_figure2.pdf` (not the `_old` variant).
+- BlenderGym matched image quality: Table 2, page 7.
+- BlenderBench main results: Table 3, page 7.
+- Execution-refiner ablation: selected columns of Table 4, page 8.
+- BlenderPreserve diagnostic results: Section 4.5, page 9.
+
+Figure assets are rendered from the specified standalone PDFs at 2200px width and stored in `static/images/vetr/` as WebP. Original PDFs are copied to `static/pdfs/vetr/figure1.pdf` and `static/pdfs/vetr/figure2.pdf`; clicking either image opens its original PDF.
+
+## Resource links
+
+PDF, arXiv, and GitHub are visibly disabled placeholders in `index.html`. To activate an entry, replace its `<button disabled ...>` with an `<a href="ACTUAL_URL" ...>` retaining the Bulma button classes, remove the `Soon` badge and placeholder class, and update its accessible label. No publication URL is assumed.
 
 ## Deployment
 
-This page is deployed automatically to GitHub Pages via the workflow in
-[.github/workflows/deploy.yml](.github/workflows/deploy.yml) on every push to `main`.
-
----
+The GitHub Pages workflow stages only the page and referenced static assets in `_site/`. Source manuscripts, old template media, and README are not included in the published artifact. Pushes to `main` or `master` trigger deployment when Pages is configured for GitHub Actions.
 
 ## Credits
 
-This project page is built on the
-[Academic Project Page Template](https://github.com/eliahuhorwitz/Academic-project-page-template),
-which was in turn adapted from the [Nerfies](https://nerfies.github.io/) page.
-
-## Website License
-
-This work is licensed under a
-[Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
+Built on the [Academic Project Page Template](https://github.com/eliahuhorwitz/Academic-project-page-template), adapted from [Nerfies](https://nerfies.github.io/). Website template licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).

@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="VETR: Verified Execution Trajectories for Refinement. Recursive self-improvement of executable world representations for symbolic graphics reasoning. ICLR 2027 submission.">
-  <meta property="og:title" content="VETR | Recursive Self-Improvement of Executable World Representation for Symbolic Graphics Reasoning">
+  <meta name="description" content="VETR: Execution-Grounded Self-Improving Agent for Symbolic Graphics Reasoning. ICLR 2027 submission.">
+  <meta property="og:title" content="VETR: Execution-Grounded Self-Improving Agent for Symbolic Graphics Reasoning">
   <meta property="og:description" content="Refining executable scenes through trace-supported updates and runtime validation, without additional language-model calls for repair construction.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="static/images/vetr/figure1.webp">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="VETR | Recursive Self-Improvement of Executable World Representation for Symbolic Graphics Reasoning">
+  <meta name="twitter:title" content="VETR: Execution-Grounded Self-Improving Agent for Symbolic Graphics Reasoning">
   <meta name="twitter:description" content="Verified Execution Trajectories for Refinement · ICLR 2027 submission">
   <meta name="twitter:image" content="static/images/vetr/figure1.webp">
   <meta name="keywords" content="VETR, executable world representation, symbolic graphics reasoning, execution refinement, Blender, visual agents">
-  <title>VETR | Recursive Self-Improvement of Executable World Representation for Symbolic Graphics Reasoning</title>
+  <title>VETR: Execution-Grounded Self-Improving Agent for Symbolic Graphics Reasoning</title>
   <link rel="icon" href="static/images/vetr/favicon.svg" type="image/svg+xml">
   <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,700|Noto+Sans:400,500,600,700" rel="stylesheet">
   <link rel="stylesheet" href="static/css/bulma.min.css">
@@ -28,7 +28,7 @@
     <div class="hero-body">
       <div class="container is-max-desktop has-text-centered">
         <p class="project-name">VETR</p>
-        <h1 class="title is-1 publication-title">Recursive Self-Improvement of Executable World Representation for Symbolic Graphics Reasoning</h1>
+        <h1 class="title is-1 publication-title">VETR: Execution-Grounded Self-Improving Agent for Symbolic Graphics Reasoning</h1>
         <p class="project-expansion">Verified Execution Trajectories for Refinement</p>
         <p class="is-size-5 publication-authors">Anonymous authors</p>
         <p class="publication-venue">ICLR 2027 submission</p>
@@ -61,9 +61,9 @@
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">Abstract</h2>
       <div class="content abstract-copy">
-        <p>Visual agents for symbolic graphics reasoning depend on executable world representations, yet continued improvement remains bottlenecked by ambiguous supervision from final renders. While recent agentic systems refine scenes through repeated interaction, they lack mechanisms to recursively extract actionable evidence from execution traces—overlooking which proposed symbolic edits survived, disappeared, or interfered during program execution.</p>
-        <p>To address this, we propose <strong>VETR (Verified Execution Trajectories for Refinement)</strong>, a framework that enables recursive self-improvement over executable world representations for robust symbolic graphics reasoning. Given an initial generation trajectory, VETR maintains complete execution records as an authoritative world state and introduces an execution refiner that recursively distills observed writes and their realized consequences into bounded program updates. Without additional language-model calls for repair, the refiner checks that selected effects are realized while captured surrounding state is preserved; the visual verifier then assesses goal relevance.</p>
-        <p>Evaluations on BlenderGym and BlenderBench compare visual editing across model backbones. Matched BlenderBench ablations show that execution refinement improves aggregate errors for GPT-5.6-luna and Qwen3.8-27B, while repeated diagnostic runs and fixed-proposal controls isolate the benefits of trace-derived updates and compatible resource bindings.</p>
+        <p>Visual agents for symbolic graphics reasoning depend on executable world representations, yet continued improvement remains bottlenecked by ambiguous supervision from final renders. Recent agentic systems refine scenes through repeated interaction, but they lack mechanisms to recursively extract actionable evidence from execution traces—overlooking which proposed symbolic edits survived, disappeared, or interfered during program execution.</p>
+        <p>To address this, we propose <strong>VETR (Verified Execution Trajectories for Refinement)</strong>, a framework that enables agentic recursive self-improvement over executable world representations for robust symbolic graphics reasoning. Given an initial generation trajectory, VETR maintains complete execution records as an authoritative world state and introduces an execution refiner that recursively distills observed writes and their realized consequences into bounded program updates. The refiner checks effect observability under preservation constraints and validates each update against runtime contracts, all without additional language-model calls.</p>
+        <p>Evaluations on BlenderGym (280 tasks) and BlenderBench (27 released tasks) with GPT-5.6-luna and Qwen3.8-27B show that VETR consistently outperforms existing refinement strategies including BlenderAlchemy and VIGA. Controlled ablations isolate the gain to the execution refiner and role-asymmetric evidence organization, confirming that execution-grounded recursive refinement—rather than additional iteration budget or model capacity—is the key driver of improvement.</p>
       </div>
     </div>
   </section>
@@ -90,35 +90,42 @@
   <section class="section hero is-light" id="results">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">Experimental Results</h2>
-      <p class="section-intro">Evaluated on BlenderGym (280 tasks) and BlenderBench (27 released tasks), with controlled edit-realization studies on BlenderPreserve.</p>
+      <p class="section-intro">Evaluated on BlenderGym (280 tasks) and BlenderBench (27 released tasks) with GPT-5.6-luna and Qwen3.8-27B.</p>
       <article class="result-block">
         <h3 class="title is-4">BlenderGym: Matched Visual Quality</h3>
-        <p class="result-description">On 212 jointly valid tasks with GPT-5.6-luna, VETR improves pixel, structural, perceptual, and semantic agreement with the goal. N denotes candidate width.</p>
+        <p class="result-description">Comparison of One-Shot, BlenderAlchemy, VIGA, and VETR on both backbones. The table combines the overall PL and N-CLIP errors from Table 1 with the complementary image-similarity metrics from Table 2.</p>
         <div class="table-scroll" role="region" aria-label="BlenderGym image quality results, scroll horizontally on small screens" tabindex="0">
-          <table class="table results-table is-fullwidth">
-            <caption>Table 2 in the paper · GPT-5.6-luna · 212 jointly valid tasks</caption>
-            <thead><tr><th scope="col">System</th><th scope="col">N-CLIP ↓</th><th scope="col">PL ↓</th><th scope="col">PSNR ↑</th><th scope="col">SSIM ↑</th><th scope="col">Edge F1 ↑</th><th scope="col">LPIPS ↓</th><th scope="col">CLIP ↑</th></tr></thead>
-            <tbody><tr class=""><th scope="row">One-Shot</th><td>2.607</td><td>1.402</td><td>24.67</td><td>0.883</td><td>0.771</td><td>0.129</td><td>0.974</td></tr>
-<tr class="ours"><th scope="row">VETR (N = 1)</th><td>1.555</td><td>0.613</td><td>29.15</td><td>0.923</td><td>0.833</td><td>0.076</td><td>0.984</td></tr>
-<tr class="ours"><th scope="row">VETR (N = 4)</th><td>1.232</td><td>0.578</td><td>30.41</td><td>0.923</td><td>0.839</td><td>0.070</td><td>0.988</td></tr>
+          <table class="table results-table is-fullwidth bench-table">
+            <caption>Tables 1–2 in the paper · Table 1: All · Table 2: complementary metrics</caption>
+            <thead><tr><th scope="col" rowspan="2">Backbone</th><th scope="col" rowspan="2">Method</th><th scope="colgroup" colspan="2">All · Table 1</th><th scope="colgroup" colspan="5">Image similarity · Table 2</th></tr><tr><th scope="col">PL ↓</th><th scope="col">N-CLIP ↓</th><th scope="col">PSNR ↑</th><th scope="col">SSIM ↑</th><th scope="col">Edge F1 ↑</th><th scope="col">LPIPS ↓</th><th scope="col">CLIP ↑</th></tr></thead>
+            <tbody>
+<tr class="group-start"><td>GPT-5.6-luna</td><th scope="row">One-Shot</th><td>1.389</td><td>2.583</td><td>25.17</td><td>0.884</td><td>0.773</td><td>0.127</td><td>0.974</td></tr>
+<tr class=""><td>GPT-5.6-luna</td><th scope="row">BlenderAlchemy</th><td>5.675</td><td>9.032</td><td>19.00</td><td>0.787</td><td>0.614</td><td>0.266</td><td>0.928</td></tr>
+<tr class=""><td>GPT-5.6-luna</td><th scope="row">VIGA</th><td>1.354</td><td>4.017</td><td>28.18</td><td>0.911</td><td>0.812</td><td>0.087</td><td>0.978</td></tr>
+<tr class="ours"><td>GPT-5.6-luna</td><th scope="row">VETR</th><td><strong>1.034</strong></td><td><strong>2.397</strong></td><td><strong>30.85</strong></td><td><strong>0.924</strong></td><td><strong>0.840</strong></td><td><strong>0.069</strong></td><td><strong>0.988</strong></td></tr>
+<tr class="group-start"><td>Qwen3.8-27B</td><th scope="row">One-Shot</th><td>2.160</td><td>3.520</td><td>23.84</td><td>0.838</td><td><strong>0.729</strong></td><td>0.171</td><td>0.965</td></tr>
+<tr class=""><td>Qwen3.8-27B</td><th scope="row">BlenderAlchemy</th><td>2.370</td><td>4.000</td><td>22.84</td><td>0.817</td><td>0.692</td><td>0.192</td><td>0.960</td></tr>
+<tr class=""><td>Qwen3.8-27B</td><th scope="row">VIGA</th><td>2.950</td><td>4.750</td><td>22.05</td><td>0.795</td><td>0.683</td><td>0.207</td><td>0.952</td></tr>
+<tr class="ours"><td>Qwen3.8-27B</td><th scope="row">VETR</th><td><strong>1.330</strong></td><td><strong>2.910</strong></td><td><strong>24.48</strong></td><td><strong>0.841</strong></td><td><strong>0.729</strong></td><td><strong>0.151</strong></td><td><strong>0.971</strong></td></tr>
 </tbody>
           </table>
         </div>
-        <p class="table-note">N-CLIP and PL are scaled by 100. ↓ Lower is better; ↑ higher is better. All rows use the same task set.</p>
+        <p class="table-note">PL and N-CLIP are scaled by 100. ↓ Lower is better; ↑ higher is better. Bold marks the best value within each backbone, including ties. Values are reproduced from the two source tables; their valid-task sets are not necessarily identical across metrics or methods. Table 2 reports VETR at N = 4; paired comparisons are reported separately in the paper.</p>
       </article>
       <article class="result-block">
         <h3 class="title is-4">BlenderBench: Native Editing Tasks</h3>
         <p class="result-description">VETR improves the aggregate score on both backbones, with especially large gains on Level 3. All iterative rows complete 27/27 tasks.</p>
         <div class="table-scroll" role="region" aria-label="BlenderBench results, scroll horizontally on small screens" tabindex="0">
           <table class="table results-table is-fullwidth bench-table">
-            <caption>Table 3 in the paper · 9 tasks per level · N = 1 for iterative methods</caption>
+            <caption>Table 3 in the paper · 9 tasks per level · 27 released tasks</caption>
             <thead><tr><th scope="col" rowspan="2">Backbone</th><th scope="col" rowspan="2">System</th><th scope="colgroup" colspan="2">Level 1</th><th scope="colgroup" colspan="2">Level 2</th><th scope="colgroup" colspan="2">Level 3</th><th scope="col" rowspan="2">Improvement ↑</th></tr><tr><th scope="col">PL ↓</th><th scope="col">N-CLIP ↓</th><th scope="col">PL ↓</th><th scope="col">N-CLIP ↓</th><th scope="col">PL ↓</th><th scope="col">N-CLIP ↓</th></tr></thead>
-            <tbody><tr class="group-start"><td>GPT-5.6-luna</td><th scope="row">One-Shot</th><td>10.9403</td><td>14.8074</td><td>2.7780</td><td>4.4044</td><td>14.3415</td><td>26.3542</td><td>—</td></tr>
-<tr class=""><td>GPT-5.6-luna</td><th scope="row">VIGA (N = 1)</th><td>11.2304</td><td>14.7821</td><td>5.3481</td><td>5.0353</td><td>21.7647</td><td>22.8812</td><td>−24.65%</td></tr>
-<tr class="ours"><td>GPT-5.6-luna</td><th scope="row">VETR (N = 1)</th><td>8.3768</td><td>10.4058</td><td>1.0725</td><td>2.7410</td><td>5.3922</td><td>6.3201</td><td>+48.46%</td></tr>
+            <tbody>
+<tr class="group-start"><td>GPT-5.6-luna</td><th scope="row">One-Shot</th><td>10.9403</td><td>14.8074</td><td>2.7780</td><td>4.4044</td><td>14.3415</td><td>26.3542</td><td>—</td></tr>
+<tr class=""><td>GPT-5.6-luna</td><th scope="row">VIGA</th><td>11.2304</td><td>14.7821</td><td>5.3481</td><td>5.0353</td><td>21.7647</td><td>22.8812</td><td>−24.65%</td></tr>
+<tr class="ours"><td>GPT-5.6-luna</td><th scope="row">VETR</th><td>6.3523</td><td>10.1947</td><td>0.6519</td><td>2.7021</td><td>5.3922</td><td>6.3201</td><td>+54.45%</td></tr>
 <tr class="group-start"><td>Qwen3.8-27B</td><th scope="row">One-Shot</th><td>12.9096</td><td>19.3977</td><td>3.9448</td><td>5.1091</td><td>18.5005</td><td>36.1053</td><td>—</td></tr>
-<tr class=""><td>Qwen3.8-27B</td><th scope="row">VIGA (N = 1)</th><td>9.4124</td><td>14.2022</td><td>4.5780</td><td>4.8665</td><td>13.6108</td><td>15.1571</td><td>+21.17%</td></tr>
-<tr class="ours"><td>Qwen3.8-27B</td><th scope="row">VETR (N = 1)</th><td>11.3198</td><td>11.6660</td><td>0.2585</td><td>3.9662</td><td>6.1227</td><td>9.1118</td><td>+51.61%</td></tr>
+<tr class=""><td>Qwen3.8-27B</td><th scope="row">VIGA</th><td>9.4124</td><td>14.2022</td><td>4.5780</td><td>4.8665</td><td>13.6108</td><td>15.1571</td><td>+21.17%</td></tr>
+<tr class="ours"><td>Qwen3.8-27B</td><th scope="row">VETR</th><td>7.7325</td><td>11.6530</td><td>0.2585</td><td>3.9672</td><td>6.1927</td><td>9.1418</td><td>+56.17%</td></tr>
 </tbody>
           </table>
         </div>
@@ -132,21 +139,18 @@
       <h2 class="title is-3 has-text-centered">What Does the Execution Refiner Add?</h2>
       <p class="section-intro">Matched BlenderBench runs keep the prompts, tools, backbone, fixed-origin execution, candidate width, and ten-interaction budget unchanged. Only the refiner is switched on or off.</p>
       <div class="table-scroll" role="region" aria-label="Execution refiner ablation results, scroll horizontally on small screens" tabindex="0">
-        <table class="table results-table is-fullwidth">
-          <caption>Selected columns from Table 4 · Level 3 errors and overall six-cell improvement</caption>
-          <thead><tr><th scope="col">Backbone</th><th scope="col">Setting</th><th scope="col">Level 3 PL ↓</th><th scope="col">Level 3 N-CLIP ↓</th><th scope="col">Overall improvement ↑</th></tr></thead>
-          <tbody><tr class="group-start"><td>GPT-5.6-luna</td><th scope="row">Without refinement</th><td>11.8475</td><td>15.2108</td><td>+41.32%</td></tr>
-<tr class="ours"><td>GPT-5.6-luna</td><th scope="row">VETR (default)</th><td>5.3922</td><td>6.3201</td><td>+48.46%</td></tr>
-<tr class="group-start"><td>Qwen3.8-27B</td><th scope="row">Without refinement</th><td>12.3879</td><td>18.5392</td><td>+34.72%</td></tr>
-<tr class="ours"><td>Qwen3.8-27B</td><th scope="row">VETR (default)</th><td>6.1227</td><td>9.1118</td><td>+51.61%</td></tr>
+        <table class="table results-table is-fullwidth bench-table">
+          <caption>Table 4 (left) in the paper · Execution-refinement ablation · 27 BlenderBench tasks</caption>
+          <thead><tr><th scope="col" rowspan="2">Backbone</th><th scope="col" rowspan="2">Setting</th><th scope="colgroup" colspan="2">Level 1</th><th scope="colgroup" colspan="2">Level 2</th><th scope="colgroup" colspan="2">Level 3</th></tr><tr><th scope="col">PL ↓</th><th scope="col">N-CLIP ↓</th><th scope="col">PL ↓</th><th scope="col">N-CLIP ↓</th><th scope="col">PL ↓</th><th scope="col">N-CLIP ↓</th></tr></thead>
+          <tbody>
+<tr class="ours group-start"><td>GPT-5.6-luna</td><th scope="row">VETR (default)</th><td>6.3523</td><td>10.1947</td><td>0.6519</td><td>2.7021</td><td>5.3922</td><td>6.3201</td></tr>
+<tr class=""><td>GPT-5.6-luna</td><th scope="row">Without refinement</th><td>8.3768</td><td>10.4058</td><td>1.0725</td><td>2.7410</td><td>11.8475</td><td>15.2108</td></tr>
+<tr class="ours group-start"><td>Qwen3.8-27B</td><th scope="row">VETR (default)</th><td>7.7325</td><td>11.6530</td><td>0.2585</td><td>3.9672</td><td>6.1927</td><td>9.1418</td></tr>
+<tr class=""><td>Qwen3.8-27B</td><th scope="row">Without refinement</th><td>11.3198</td><td>13.8822</td><td>2.9924</td><td>3.3747</td><td>12.3879</td><td>18.5392</td></tr>
 </tbody>
         </table>
       </div>
-      <p class="table-note">Errors × 100. Overall improvement is measured against One-Shot, as above. Refinement improves the aggregate score, although several easier-level cells worsen: runtime validity alone does not guarantee better goal-image alignment.</p>
-      <div class="diagnostic-callout">
-        <div><p class="eyebrow">BlenderPreserve · controlled diagnosis</p><h3 class="title is-4">82.7% strict success across 150 runs</h3><p>The refiner passes 124/150 runs, versus 100/150 for an overwrite-aware prompt hint, 98/150 for rollback, and 86/150 for additional generator search.</p></div>
-        <p class="diagnostic-note">30 tasks × 5 independent draws per policy. This diagnostic suite uses a goal-image score gate; BlenderBench uses runtime-only repair acceptance.</p>
-      </div>
+      <p class="table-note">Errors × 100; lower is better. Disabling refinement increases error in 11 of the 12 level–metric cells across the two backbones. The exception is Qwen Level 2 N-CLIP. Runtime validation checks supported effects and preservation; visual verification assesses goal relevance.</p>
     </div>
   </section>
 </main>

@@ -1,6 +1,6 @@
 # VETR project page
 
-**Recursive Self-Improvement of Executable World Representation for Symbolic Graphics Reasoning**
+**VETR: Execution-Grounded Self-Improving Agent for Symbolic Graphics Reasoning**
 
 Anonymous authors · ICLR 2027 submission
 
@@ -8,14 +8,14 @@ Static project page based on the existing Academic Project Page Template / Bulma
 
 ## Content source
 
-The title, abstract, and experimental results follow **`paper_source/evotrace_iclr2027.pdf`**, which differs from the adjacent LaTeX source. Per the requested figure selection, the images use the standalone PDFs below rather than the compiled manuscript figures.
+The title, abstract, and experimental results follow the supplied **`ICLR_2027.pdf`** (28 pages). This supersedes the older `paper_source/evotrace_iclr2027.pdf` for webpage text and results. Figure assets remain the explicitly selected standalone PDFs:
 
 - Figure 1: `paper_source/fig/figure1/VETR_figure1.pdf`.
 - Figure 2: `paper_source/fig/figure2/vetr_figure2.pdf` (not the `_old` variant).
-- BlenderGym matched image quality: Table 2, page 7.
+- BlenderGym: Table 1 **All** columns (PL, N-CLIP), merged with all five metrics from Table 2, page 7. All four methods and both backbones are included; do not describe these as a single 212-task matched cohort.
 - BlenderBench main results: Table 3, page 7.
-- Execution-refiner ablation: selected columns of Table 4, page 8.
-- BlenderPreserve diagnostic results: Section 4.5, page 9.
+- Execution-refiner ablation: all three levels from Table 4 (left), page 9.
+- The older BlenderPreserve diagnostic callout was removed because it is not part of the updated results presentation.
 
 Figure assets are rendered from the specified standalone PDFs at 2200px width and stored in `static/images/vetr/` as WebP. Original PDFs are copied to `static/pdfs/vetr/figure1.pdf` and `static/pdfs/vetr/figure2.pdf`; clicking either image opens its original PDF.
 

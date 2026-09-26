@@ -21,7 +21,7 @@ Figure assets are rendered from the specified standalone PDFs at 2200px width an
 
 ## Resource links
 
-PDF, arXiv, and GitHub are visibly disabled placeholders in `index.html`. To activate an entry, replace its `<button disabled ...>` with an `<a href="ACTUAL_URL" ...>` retaining the Bulma button classes, remove the `Soon` badge and placeholder class, and update its accessible label. No publication URL is assumed.
+The Code button links to the [anonymous repository](https://anonymous.4open.science/r/vetr-2626) and opens in a new tab. PDF and arXiv remain disabled placeholders in `index.html`. To activate either entry, replace its `<button disabled ...>` with an `<a href="ACTUAL_URL" ...>` retaining the Bulma button classes, remove the `Soon` badge and placeholder class, and update its accessible label.
 
 ## Deployment
 
